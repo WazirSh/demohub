@@ -1,0 +1,38 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+    - release/*
+  pull_request:
+    branches:
+    - main
+    
+jobs:
+  demo_job1:
+    name: demo job 1
+    runs-on: self-hosted
+    defaults:
+      run:
+          shell: bash
+          working-directory: /tmp/my-runner
+    steps:
+      - name: Print a greeting
+        env:
+          MY_VAR: Hi there! My name is
+          FIRST_NAME: Shadi
+          MIDDLE_NAME: Najeeb
+          LAST_NAME: Wazir
+        run: |
+          echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
+      - name: List directory contect
+        run: |
+          ls -l          
+      - name: leave a trace file on the runner working directory
+        run: |
+          filename=f2::$(date)
+          touch "$filename"
+
+          
+          
+          
